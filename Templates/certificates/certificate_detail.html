@@ -1,0 +1,27 @@
+`{% extends "base.html" %}` `{% block content %}`
+
+<div class="certificate-wrapper">
+  <div class="certificate">
+    <h1>LearnHub</h1>
+    <h2>Certificate of Completion</h2>
+
+    <p>This certificate is proudly presented to</p>
+
+    <div class="student-name">{{ certificate.student.username }}</div>
+
+    <p>for successfully completing the course</p>
+
+    <div class="course-name">{{ certificate.course.title }}</div>
+
+    <p>Issued on: {{ certificate.issued_at|date:"d F Y" }}</p>
+
+    <p>Certificate ID: {{ certificate.certificate_id }}</p>
+  </div>
+
+  <div class="no-print" style="text-align: center; margin-top: 20px">
+    <button onclick="window.print()">Download / Print Certificate</button>
+    <a href="{% url 'my_certificates' %}">Back to My Certificates</a>
+  </div>
+</div>
+
+`{% endblock %}`

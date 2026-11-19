@@ -1,0 +1,350 @@
+{% extends "base.html" %} {% block title %}LearnHub | Learning Management
+System{% endblock %} {% block content %}
+
+<!-- ================= HERO SECTION ================= -->
+
+<section class="hero-section">
+  <div class="hero-glow hero-glow-one"></div>
+  <div class="hero-glow hero-glow-two"></div>
+
+  <div class="hero-container">
+    <div class="hero-content reveal">
+      <div class="hero-badge">✦ Learn • Practice • Grow</div>
+
+      <h1>
+        Welcome to
+        <span>Learning Management System</span>
+      </h1>
+
+      <p class="hero-highlight">Improve Your Skills</p>
+
+      <p class="hero-description">
+        Learn new concepts, practice your skills, explore courses and track your
+        learning progress — all in one place.
+      </p>
+
+      <div class="hero-actions">
+        <a href="{% url 'student_courses' %}" class="hero-primary-btn">
+          Explore Courses
+          <span>→</span>
+        </a>
+
+        <a href="#features" class="hero-secondary-btn"> Learn More </a>
+      </div>
+    </div>
+
+    <!-- ================= HERO VISUAL ================= -->
+
+    <div class="hero-visual reveal">
+      <div class="floating-card floating-card-top">
+        <div class="floating-icon">✓</div>
+
+        <div>
+          <small>Learning Progress</small>
+          <strong>Keep Improving</strong>
+        </div>
+      </div>
+
+      <div class="learning-window">
+        <div class="learning-window-header">
+          <div class="window-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <span>LearnHub</span>
+        </div>
+
+        <div class="learning-window-body">
+          <div class="learning-icon">◈</div>
+
+          <h3>Start Learning</h3>
+
+          <p>Choose a course and begin your journey.</p>
+
+          <div class="learning-progress-line">
+            <span></span>
+          </div>
+
+          <div class="learning-info">
+            <span> Learn </span>
+
+            <span> Practice </span>
+
+            <span> Improve </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="floating-card floating-card-bottom">
+        <div class="mini-circle">+</div>
+
+        <div>
+          <small>Today's Goal</small>
+          <strong>Learn Something New</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- COURSES WE OFFER -->
+
+<section class="features-section" id="courses">
+  <div class="section-container">
+    <div class="section-heading">
+      <span class="section-label">OUR COURSES</span>
+      <h2>Courses <span>We Offer</span></h2>
+      <p>Explore our latest published courses and start learning.</p>
+    </div>
+
+    <div class="feature-grid">
+      {% for course in courses %}
+      <div class="feature-card">
+        {% if course.thumbnail %}
+        <img
+          src="{{ course.thumbnail.url }}"
+          alt="{{ course.title }}"
+          style="
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+          "
+        />
+        {% endif %}
+
+        <h3>{{ course.title }}</h3>
+        <p>{{ course.description|truncatewords:20 }}</p>
+
+        <a href="{{ course.home_url }}" class="hero-primary-btn">
+          {{ course.home_label }} →
+        </a>
+      </div>
+      {% empty %}
+      <p>No courses available yet. Please check back soon!</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features-section" id="features">
+  <div class="section-container">
+    <div class="section-heading reveal">
+      <span class="section-label"> WHY USE OUR LMS </span>
+
+      <h2>
+        Everything you need to
+        <span>improve your skills.</span>
+      </h2>
+
+      <p>
+        Learn at your own pace, practice what you learn and keep track of your
+        progress.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+      <!-- FEATURE 1 -->
+
+      <div class="feature-card reveal">
+        <div class="feature-number">01</div>
+
+        <div class="feature-icon">◈</div>
+
+        <h3>Learn</h3>
+
+        <p>
+          Explore structured courses, modules and lessons designed to make
+          learning easier.
+        </p>
+
+        <span class="feature-tag"> Courses & Lessons </span>
+      </div>
+
+      <!-- FEATURE 2 -->
+
+      <div class="feature-card reveal">
+        <div class="feature-number">02</div>
+
+        <div class="feature-icon blue-icon">⌘</div>
+
+        <h3>Practice</h3>
+
+        <p>
+          Practice coding and apply what you learn through hands-on problems and
+          activities.
+        </p>
+
+        <span class="feature-tag"> Practice & Build </span>
+      </div>
+
+      <!-- FEATURE 3 -->
+
+      <div class="feature-card reveal">
+        <div class="feature-number">03</div>
+
+        <div class="feature-icon green-icon">↗</div>
+
+        <h3>Track Progress</h3>
+
+        <p>
+          Monitor completed lessons and understand your learning progress
+          throughout the course.
+        </p>
+
+        <span class="feature-tag"> Track Your Growth </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS SECTION ================= -->
+
+<section class="skills-section">
+  <div class="skills-container">
+    <div class="skills-content reveal">
+      <span class="section-label"> KEEP GROWING </span>
+
+      <h2>
+        Learn today.
+        <span>Improve tomorrow.</span>
+      </h2>
+
+      <p>
+        Whether you're starting from the basics or improving existing knowledge,
+        LearnHub gives you a structured place to continue learning.
+      </p>
+
+      <div class="skills-list">
+        <div>
+          <span>✓</span>
+          Learn new technologies
+        </div>
+
+        <div>
+          <span>✓</span>
+          Practice your knowledge
+        </div>
+
+        <div>
+          <span>✓</span>
+          Build your confidence
+        </div>
+
+        <div>
+          <span>✓</span>
+          Track your learning progress
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-visual reveal">
+      <div class="skill-orbit orbit-one">
+        <span>SQL</span>
+      </div>
+
+      <div class="skill-orbit orbit-two">
+        <span>Python</span>
+      </div>
+
+      <div class="skill-orbit orbit-three">
+        <span>JavaScript</span>
+      </div>
+
+      <div class="skill-center">
+        <strong>+</strong>
+        <span>SKILLS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CODING SECTION ================= -->
+
+<section class="coding-section">
+  <div class="coding-container">
+    <div class="coding-content reveal">
+      <span class="section-label"> CODING PRACTICE </span>
+
+      <h2>
+        Don't just learn.
+        <span>Practice.</span>
+      </h2>
+
+      <p>
+        Turn your knowledge into practical skills by solving coding problems and
+        working with different programming languages.
+      </p>
+
+      <a href="{% url 'student_courses' %}" class="coding-btn">
+        Start Practicing →
+      </a>
+    </div>
+
+    <div class="terminal-card reveal">
+      <div class="terminal-header">
+        <div class="window-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <span>coding_practice</span>
+      </div>
+
+      <div class="terminal-body">
+        <p>
+          <span class="terminal-purple">$</span>
+          start learning
+        </p>
+
+        <p class="terminal-muted">Selecting your next challenge...</p>
+
+        <p>
+          <span class="terminal-green">✓</span>
+          Practice environment ready
+        </p>
+
+        <p>
+          <span class="terminal-green">✓</span>
+          Improve your skills
+        </p>
+
+        <p class="terminal-cursor"><span>$</span> _</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+
+<section class="cta-section">
+  <div class="cta-card reveal">
+    <span class="section-label"> START LEARNING </span>
+
+    <h2>
+      Ready to
+      <span>improve your skills?</span>
+    </h2>
+
+    <p>
+      Start exploring courses and take the next step in your learning journey.
+    </p>
+
+    <div class="cta-actions">
+      <a href="{% url 'student_courses' %}" class="hero-primary-btn">
+        Explore Courses
+        <span>→</span>
+      </a>
+
+      <a href="{% url 'student_register' %}" class="hero-secondary-btn">
+        Create Account
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

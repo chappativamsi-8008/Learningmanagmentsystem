@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+<div class="coding-container">
+  <h1>Coding Portal</h1>
+  <p>Practice coding problems and improve your skills.</p>
+
+  {% for problem in problems %}
+  <div class="problem-card">
+    <h3>
+      <a href="{% url 'problem_detail' problem.id %}"> {{ problem.title }} </a>
+    </h3>
+
+    <p>{{ problem.description }}</p>
+    <p>Difficulty: {{ problem.difficulty }}</p>
+  </div>
+  {% empty %}
+  <p>No coding problems available.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}{% load static %} {% block title %}{{ registration_type
+}} Registration{% endblock %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
+
+<div class="auth-container">
+  <div class="auth-card">
+    <h1>{{ registration_type }} Registration</h1>
+
+    <p class="auth-subtitle">Create your LMS account</p>
+
+    <form method="POST">
+      {% csrf_token %} {% for field in form %}
+
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}"> {{ field.label }} </label>
+
+        {{ field }} {% if field.errors %}
+
+        <div class="field-error">{{ field.errors }}</div>
+
+        {% endif %}
+      </div>
+
+      {% endfor %}
+
+      <button type="submit" class="btn-primary">Create Account</button>
+    </form>
+
+    <p class="auth-footer">
+      Already have an account?
+
+      <a href="{% url 'login' %}"> Login </a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

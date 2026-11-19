@@ -1,0 +1,49 @@
+```django {% extends "base.html" %} {% block content %}
+
+<div class="attempt-exam-page">
+  <div class="exam-header">
+    <h2>{{ exam.title }}</h2>
+    <p>{{ exam.instructions }}</p>
+    <p class="pass-percentage">Pass Percentage: {{ exam.pass_percentage }}%</p>
+  </div>
+
+  <form method="POST">
+    {% csrf_token %} {% for question in questions %}
+    <div class="question-card">
+      <h3>{{ forloop.counter }}. {{ question.question_text }}</h3>
+
+      <label class="answer-option">
+        <input
+          type="radio"
+          name="question_{{ question.id }}"
+          value="A"
+          required
+        />
+        <span>{{ question.option_a }}</span>
+      </label>
+
+      <label class="answer-option">
+        <input type="radio" name="question_{{ question.id }}" value="B" />
+        <span>{{ question.option_b }}</span>
+      </label>
+
+      <label class="answer-option">
+        <input type="radio" name="question_{{ question.id }}" value="C" />
+        <span>{{ question.option_c }}</span>
+      </label>
+
+      <label class="answer-option">
+        <input type="radio" name="question_{{ question.id }}" value="D" />
+        <span>{{ question.option_d }}</span>
+      </label>
+    </div>
+
+    {% empty %}
+    <p class="empty-questions">No questions added to this exam.</p>
+    {% endfor %} {% if questions %}
+    <button type="submit" class="submit-exam-btn">Submit Exam</button>
+    {% endif %}
+  </form>
+</div>
+
+{% endblock %} ```

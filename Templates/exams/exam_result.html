@@ -1,0 +1,76 @@
+```django {% extends "base.html" %} {% block content %}
+
+<div class="exam-result-page">
+  <h2>{{ exam.title }} - Result</h2>
+
+  <hr />
+
+  <div class="result-summary">
+    <div class="result-item">
+      <p>Total Marks</p>
+      <strong>{{ total_marks }}</strong>
+    </div>
+
+    <div class="result-item">
+      <p>Obtained Marks</p>
+      <strong>{{ obtained_marks }}</strong>
+    </div>
+
+    <div class="result-item result-percentage">
+      <p>Percentage</p>
+      <strong>{{ percentage|floatformat:2 }}%</strong>
+    </div>
+
+    <div class="result-item">
+      <p>Pass Percentage</p>
+      <strong>{{ exam.pass_percentage }}%</strong>
+    </div>
+  </div>
+
+  {% if passed %}
+
+  <div class="result-status passed">
+    <h3>Congratulations! You Passed 🎉</h3>
+  </div>
+
+  {% if certificate %}
+  <p class="result-message">Your certificate is ready!</p>
+  <div class="result-actions">
+    <a
+      href="{% url 'view_certificate' certificate.id %}"
+      class="result-btn certificate-btn"
+    >
+      View Certificate
+    </a>
+    <a href="{% url 'student_dashboard' %}" class="result-btn dashboard-btn">
+      Back to Dashboard
+    </a>
+  </div>
+  {% else %}
+  <p class="result-message">
+    Your exam is passed! Complete all course lessons to become eligible for your
+    certificate.
+  </p>
+  <div class="result-actions">
+    <a href="{% url 'student_dashboard' %}" class="result-btn dashboard-btn">
+      Back to Dashboard
+    </a>
+  </div>
+  {% endif %} {% else %}
+
+  <div class="result-status failed">
+    <h3>Sorry! You Didn't Pass ❌</h3>
+  </div>
+
+  <p class="result-message">You need {{ exam.pass_percentage }}% to pass.</p>
+
+  <div class="result-actions">
+    <a href="{% url 'student_dashboard' %}" class="result-btn dashboard-btn">
+      Back to Dashboard
+    </a>
+  </div>
+
+  {% endif %}
+</div>
+
+{% endblock %} ```

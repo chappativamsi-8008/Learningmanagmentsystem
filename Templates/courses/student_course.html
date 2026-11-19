@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+
+<div class="student-learning-container">
+  <!-- Course Header -->
+  <div class="student-learning-header">
+    <div>
+      <span class="learning-badge">Enrolled Course</span>
+
+      <h1>{{ course.title }}</h1>
+
+      <p>{{ course.description|default:"Start learning with this course." }}</p>
+    </div>
+  </div>
+
+  <!-- Course Modules and Sidebar -->
+  <div class="learning-content">
+    <div class="modules-card">
+      <h2>Course Modules</h2>
+
+      {% for module in course.modules.all %}
+      <div class="learning-module">
+        <div class="module-number">{{ module.order }}</div>
+
+        <div class="module-details">
+          <h3>
+            <a href="{% url 'student_module' module.id %}">
+              {{ module.title }}
+            </a>
+          </h3>
+
+          <p>Course module</p>
+        </div>
+      </div>
+      {% empty %}
+      <div class="no-learning-content">
+        <h3>No Modules Available</h3>
+        <p>The instructor hasn't added any modules yet.</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Course Progress Sidebar -->
+    <aside class="learning-sidebar">
+      <div class="learning-sidebar-card">
+        <h3>Your Course</h3>
+
+        <p>You are enrolled in this course.</p>
+
+        <div class="learning-progress">
+          <span>Progress</span>
+          <strong>{{ progress_percentage }}%</strong>
+        </div>
+
+        <div
+          class="progress-bar"
+          role="progressbar"
+          aria-label="Course completion progress"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="{{ progress_percentage }}"
+        >
+          <div
+            class="progress-fill"
+            data-progress="{{ progress_percentage }}"
+          ></div>
+        </div>
+
+        <p class="progress-text">
+          {{ completed_lessons }} of {{ total_lessons }} lessons completed
+        </p>
+
+        <p class="progress-text">{{ remaining_lessons }} lessons remaining</p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll(".progress-fill").forEach((fill) => {
+    const rawProgress = Number(fill.dataset.progress);
+    const progress = Number.isFinite(rawProgress)
+      ? Math.min(100, Math.max(0, rawProgress))
+      : 0;
+
+    fill.style.width = progress + "%";
+  });
+</script>
+
+{% endblock %} ```

@@ -1,0 +1,117 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
+
+<div class="auth-page">
+  <div class="auth-glow auth-glow-one"></div>
+  <div class="auth-glow auth-glow-two"></div>
+
+  <div class="auth-wrapper">
+    <!-- LEFT SIDE -->
+
+    <div class="auth-intro">
+      <div class="auth-brand-mark">L</div>
+
+      <span class="auth-label">WELCOME BACK</span>
+
+      <h1>
+        Keep learning.
+        <span>Keep growing.</span>
+      </h1>
+
+      <p>
+        Continue your learning journey, explore courses and improve your skills.
+      </p>
+
+      <div class="auth-points">
+        <div class="auth-point">
+          <span>✓</span>
+          <p>Learn at your own pace</p>
+        </div>
+
+        <div class="auth-point">
+          <span>✓</span>
+          <p>Practice what you learn</p>
+        </div>
+
+        <div class="auth-point">
+          <span>✓</span>
+          <p>Track your progress</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGIN CARD -->
+
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <span class="auth-mini-label"> LMS ACCOUNT </span>
+
+        <h2>Welcome back 👋</h2>
+
+        <p>Login to continue learning.</p>
+      </div>
+
+      <form method="POST" class="auth-form">
+        {% csrf_token %} {{ form.non_field_errors }}
+
+        <!-- USERNAME -->
+
+        <div class="form-group">
+          <label for="{{ form.username.id_for_label }}"> Username </label>
+
+          {{ form.username }} {{ form.username.errors }}
+        </div>
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+          <label for="{{ form.password.id_for_label }}"> Password </label>
+
+          <div class="password-wrapper">
+            {{ form.password }}
+
+            <button
+              type="button"
+              class="password-toggle"
+              onclick="togglePassword(this)"
+              aria-label="Show password"
+            >
+              👁
+            </button>
+          </div>
+
+          {{ form.password.errors }}
+        </div>
+
+        <!-- FORGOT PASSWORD -->
+
+        <div class="forgot-password">
+          <a href="{% url 'password_reset' %}"> Forgot Password? </a>
+        </div>
+
+        <!-- LOGIN BUTTON -->
+
+        <button type="submit" class="btn-primary auth-submit">
+          <span>Login</span>
+          <strong>→</strong>
+        </button>
+      </form>
+
+      <!-- REGISTER LINKS -->
+
+      <div class="auth-divider">
+        <span>New to LearnHub?</span>
+      </div>
+
+      <div class="auth-register-links">
+        <a href="{% url 'student_register' %}">
+          <span>Student</span>
+          <strong>Register →</strong>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+```django {% extends "base.html" %} {% block content %}
+
+<div class="available-exams-page">
+  <h2>Available Exams</h2>
+
+  <div class="exam-list">
+    {% for exam in exams %}
+
+    <div class="exam-card">
+      <h3>{{ exam.title }}</h3>
+
+      <p>Course: {{ exam.course.title }}</p>
+
+      <p class="exam-pass-percentage">
+        Pass Percentage: {{ exam.pass_percentage }}%
+      </p>
+
+      <a href="{% url 'student_exam' exam.id %}" class="start-exam-btn">
+        Start Exam →
+      </a>
+    </div>
+
+    {% empty %}
+
+    <p class="empty-exams">No exams available.</p>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %} ```

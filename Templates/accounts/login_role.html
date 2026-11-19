@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
+
+<div class="auth-page">
+  <div class="auth-glow auth-glow-one"></div>
+  <div class="auth-glow auth-glow-two"></div>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <span class="auth-mini-label"> LMS ACCOUNT </span>
+
+        <h2>Welcome to LearnHub 👋</h2>
+
+        <p>Choose your account type to continue.</p>
+      </div>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="role-selection">
+          <button type="submit" name="role" value="student" class="role-option">
+            <span class="role-icon"> 👨‍🎓 </span>
+
+            <span class="role-content">
+              <strong> Student </strong>
+
+              <small> Continue learning and track your progress </small>
+            </span>
+
+            <span class="role-arrow"> → </span>
+          </button>
+
+          <button type="submit" name="role" value="teacher" class="role-option">
+            <span class="role-icon"> 👨‍🏫 </span>
+
+            <span class="role-content">
+              <strong> Teacher </strong>
+
+              <small> Create courses and manage your lessons </small>
+            </span>
+
+            <span class="role-arrow"> → </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+
+<div class="student-module-container">
+  <!-- Module Header -->
+  <div class="student-module-header">
+    <span class="learning-badge">Course Module</span>
+    <h1>{{ module.title }}</h1>
+    <p>Learn the lessons included in this module.</p>
+  </div>
+
+  <div class="split-learning-layout">
+    <!-- LEFT SIDE: LESSONS -->
+    <aside class="lesson-list-panel">
+      <h2>Lessons</h2>
+
+      {% for lesson in module.lessons.all %}
+      <div class="student-lesson-item">
+        <div class="lesson-number">{{ lesson.order }}</div>
+
+        <div class="lesson-details">
+          <h3>{{ lesson.title }}</h3>
+
+          {% if lesson.description %}
+          <p>{{ lesson.description }}</p>
+          {% endif %}
+
+          <div class="lesson-links">
+            {% if lesson.matter_link %}
+            <a
+              href="{{ lesson.matter_link }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="lesson-matter-btn"
+            >
+              📖 Read Matter
+            </a>
+            {% endif %} {% if lesson.video_link %}
+            <button
+              type="button"
+              class="lesson-video-btn watch-video-button"
+              data-video-url="{{ lesson.video_link|escape }}"
+              data-lesson-title="{{ lesson.title|escape }}"
+            >
+              ▶ Watch Video
+            </button>
+            {% endif %} {% if lesson.progress.first.is_completed %}
+            <span class="lesson-completed">✓ Completed</span>
+            {% else %}
+            <a
+              href="{% url 'complete_lesson' lesson.id %}"
+              class="lesson-complete-btn"
+            >
+              ✓ Mark as Complete
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+      <div class="no-learning-content">
+        <h3>No Lessons Available</h3>
+        <p>The instructor hasn't added any lessons yet.</p>
+      </div>
+      {% endfor %}
+    </aside>
+
+    <!-- RIGHT SIDE: VIDEO PLAYER -->
+    <section class="lesson-player-panel">
+      <h2 id="lessonPlayerTitle">Lesson Video</h2>
+
+      <div id="playerPlaceholder" class="player-placeholder">
+        <div class="player-placeholder-icon">▶</div>
+        <h3>Select a lesson</h3>
+        <p>Click "Watch Video" to play it here.</p>
+      </div>
+
+      <iframe
+        id="lessonVideoFrame"
+        class="video-frame"
+        src="about:blank"
+        title="Lesson video player"
+        allow="
+          accelerometer;
+          autoplay;
+          clipboard-write;
+          encrypted-media;
+          gyroscope;
+          picture-in-picture;
+          web-share;
+        "
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        hidden
+      ></iframe>
+
+      <p id="videoPlayerMessage" class="video-player-message" hidden>
+        If the video does not play, its provider may block embedding.
+      </p>
+    </section>
+  </div>
+</div>
+
+<script src="{% static 'css/js/script.js' %}" defer></script>
+
+{% endblock %} ```

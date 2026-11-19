@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+
+<div class="module-form">
+  <h1>Edit Module</h1>
+
+  <p class="module-course">Course: {{ course.title }}</p>
+
+  <form method="POST">
+    {% csrf_token %} {{ form.as_p }}
+
+    <button type="submit">Update Module</button>
+  </form>
+</div>
+
+{% endblock %}

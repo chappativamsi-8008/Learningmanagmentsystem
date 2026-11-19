@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+
+<div class="student-my-courses">
+  <div class="student-my-courses-header">
+    <h1>My Courses</h1>
+    <p>Continue learning from your enrolled courses.</p>
+  </div>
+
+  <div class="course-grid">
+    {% for enrollment in enrollments %}
+    <div class="enrolled-course-card">
+      {% if enrollment.course.thumbnail %}
+      <img
+        src="{{ enrollment.course.thumbnail.url }}"
+        alt="{{ enrollment.course.title }}"
+        loading="lazy"
+      />
+      {% else %}
+      <div class="course-placeholder">No Thumbnail</div>
+      {% endif %}
+
+      <div class="enrolled-course-content">
+        <h2>{{ enrollment.course.title }}</h2>
+
+        <p>
+          {{ enrollment.course.description|default:"Continue learning with this
+          course." }}
+        </p>
+
+        <a
+          href="{% url 'student_course' enrollment.course.id %}"
+          class="open-course-btn"
+        >
+          Open Course →
+        </a>
+      </div>
+    </div>
+
+    {% empty %}
+    <div class="student-my-courses-empty">
+      <h2>No Enrolled Courses</h2>
+
+      <p>You haven't enrolled in any courses yet.</p>
+
+      <a href="{% url 'student_courses' %}" class="create-course-btn">
+        Browse Courses
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %} ```

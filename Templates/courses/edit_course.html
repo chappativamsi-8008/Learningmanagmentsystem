@@ -1,0 +1,54 @@
+{% extends "base.html" %}{% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+
+<div class="course-form">
+  <h1>Edit Course</h1>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Course Name -->
+
+    <div class="form-group">
+      <label for="{{ form.title.id_for_label }}"> Course Name </label>
+
+      {{ form.title }} {{ form.title.errors }}
+    </div>
+
+    <!-- Description -->
+
+    <div class="form-group">
+      <label for="{{ form.description.id_for_label }}"> Description </label>
+
+      {{ form.description }} {{ form.description.errors }}
+    </div>
+
+    <!-- Thumbnail -->
+
+    <div class="form-group">
+      <label for="{{ form.thumbnail.id_for_label }}"> Course Thumbnail </label>
+
+      {{ form.thumbnail }} {{ form.thumbnail.errors }}
+    </div>
+
+    <!-- Price -->
+
+    <div class="form-group">
+      <label for="{{ form.price.id_for_label }}"> Price </label>
+
+      {{ form.price }} {{ form.price.errors }}
+    </div>
+
+    <!-- Publish -->
+
+    <div class="course-publish">
+      {{ form.is_published }}
+
+      <label for="{{ form.is_published.id_for_label }}"> Publish Course </label>
+    </div>
+
+    <button type="submit">Update Course</button>
+  </form>
+</div>
+
+{% endblock %}

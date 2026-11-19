@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+
+<div class="courses-container">
+  <div class="courses-header">
+    <div>
+      <h1>Available Courses</h1>
+      <p>Explore courses and start learning.</p>
+    </div>
+  </div>
+
+  <div class="course-grid">
+    {% for course in courses %}
+
+    <div class="course-card">
+      {% if course.thumbnail %}
+      <img
+        src="{{ course.thumbnail.url }}"
+        alt="{{ course.title }}"
+        loading="lazy"
+      />
+      {% else %}
+      <div class="course-placeholder">No Thumbnail</div>
+      {% endif %}
+
+      <div class="course-card-content">
+        <h2>{{ course.title }}</h2>
+
+        <p>
+          {{ course.description|default:"Explore this course and start
+          learning." }}
+        </p>
+
+        <div class="course-info">
+          <span>₹{{ course.price }}</span>
+          <span class="published">Published</span>
+        </div>
+
+        <a href="{% url 'course_details' course.id %}" class="action-module">
+          View Details →
+        </a>
+      </div>
+    </div>
+
+    {% empty %}
+
+    <div class="empty-courses">
+      <h2>No Courses Available</h2>
+      <p>There are no published courses available right now.</p>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %} ```

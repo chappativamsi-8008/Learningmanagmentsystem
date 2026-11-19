@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div class="delete-module-page">
+  <div class="delete-card">
+    <h2>Delete Module?</h2>
+
+    <p>
+      Are you sure you want to delete
+      <strong>{{ module.title }}</strong>?
+    </p>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="delete-actions">
+        <button type="submit" class="delete-confirm">Yes, Delete</button>
+
+        <a href="{% url 'teacher_courses' %}" class="delete-cancel"> Cancel </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %} ```

@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block content %}
+
+<h2>Add Questions</h2>
+
+<h3>{{ exam.title }}</h3>
+
+<form method="POST">
+  {% csrf_token %} {{ form.as_p }}
+
+  <button type="submit">Add Question</button>
+</form>
+
+<hr />
+
+<h3>Added Questions</h3>
+
+{% for question in questions %}
+
+<div>
+  <p>
+    <strong>{{ forloop.counter }}. {{ question.question_text }}</strong>
+  </p>
+
+  <p>A. {{ question.option_a }}</p>
+  <p>B. {{ question.option_b }}</p>
+  <p>C. {{ question.option_c }}</p>
+  <p>D. {{ question.option_d }}</p>
+
+  <p>
+    Correct Answer: {{ question.correct_answer }} | Marks: {{ question.marks }}
+  </p>
+</div>
+
+<hr />
+
+{% empty %}
+
+<p>No questions added yet.</p>
+
+{% endfor %} {% if not exam.is_published %}
+
+<a href="{% url 'publish_exam' exam.id %}"> Publish Exam </a>
+
+{% else %}
+
+<p>Exam Published ✓</p>
+
+{% endif %} {% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+<div class="delete-course">
+  <div class="delete-card">
+    <div class="delete-icon">!</div>
+
+    <h2>Delete Course?</h2>
+
+    <p>
+      Are you sure you want to delete
+      <strong>{{ course.title }}</strong>?
+    </p>
+
+    <p class="delete-warning">This action cannot be undone.</p>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="delete-actions">
+        <button type="submit" class="delete-confirm">Yes, Delete</button>
+
+        <a href="{% url 'teacher_courses' %}" class="delete-cancel"> Cancel </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

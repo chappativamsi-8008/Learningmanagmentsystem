@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+
+<div class="course-details-container">
+  <div class="course-details-card">
+    <div class="course-details-image-section">
+      {% if course.thumbnail %}
+
+      <img
+        src="{{ course.thumbnail.url }}"
+        alt="{{ course.title }}"
+        class="course-details-image"
+      />
+
+      {% else %}
+
+      <div class="course-details-placeholder">No Thumbnail</div>
+
+      {% endif %}
+    </div>
+
+    <div class="course-details-content">
+      <span class="course-details-badge"> Published </span>
+
+      <h1>{{ course.title }}</h1>
+
+      <p class="course-details-description">{{ course.description }}</p>
+
+      <div class="course-details-meta">
+        <div>
+          <span>Price</span>
+          <strong>₹{{ course.price }}</strong>
+        </div>
+
+        <div>
+          <span>Instructor</span>
+          <strong>{{ course.teacher.username }}</strong>
+        </div>
+      </div>
+
+      <form method="POST" action="{% url 'enroll_course' course.id %}">
+        {% csrf_token %}
+
+        <button type="submit" class="enroll-btn">Enroll Now</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

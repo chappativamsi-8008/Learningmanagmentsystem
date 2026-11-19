@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="course-search-page">
+  <div class="course-search-header">
+    <h2>Search Results</h2>
+
+    {% if query %}
+    <p class="course-search-query">Results for: <strong>{{ query }}</strong></p>
+    {% endif %}
+  </div>
+
+  {% if query %}
+
+  <div class="course-search-grid">
+    {% for course in courses %}
+    <div class="search-course-card">
+      <h3>{{ course.title }}</h3>
+
+      <p>{{ course.description|default:"No description available." }}</p>
+
+      <a href="{% url 'course_details' course.id %}" class="view-course-btn">
+        View Course →
+      </a>
+    </div>
+
+    {% empty %}
+    <div class="course-search-empty">
+      <p>No matching courses found.</p>
+      <p>Try searching with a different keyword.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <div class="course-search-hint">
+    <p>Enter a keyword to search for courses.</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %} ```

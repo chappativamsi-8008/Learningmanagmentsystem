@@ -1,0 +1,130 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/courses.css' %}" />
+
+<div class="courses-container">
+  <div class="courses-header">
+    <div>
+      <h1>My Courses</h1>
+      <p>Manage the courses you created.</p>
+    </div>
+
+    <a href="{% url 'create_course' %}" class="create-course-btn">
+      + Create Course
+    </a>
+  </div>
+
+  <div class="course-grid">
+    {% for course in courses %}
+
+    <div class="course-card">
+      {% if course.thumbnail %}
+      <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" />
+      {% else %}
+      <div class="course-placeholder">No Thumbnail</div>
+      {% endif %}
+
+      <div class="course-card-content">
+        <h2>{{ course.title }}</h2>
+        <p>{{ course.description }}</p>
+
+        <div class="course-actions">
+          <a href="{% url 'edit_course' course.id %}" class="action-edit">
+            Edit
+          </a>
+
+          <a href="{% url 'delete_course' course.id %}" class="action-delete">
+            Delete
+          </a>
+
+          <a href="{% url 'create_module' course.id %}" class="action-module">
+            + Add Module
+          </a>
+        </div>
+
+        <div class="modules-section">
+          <h3>Modules</h3>
+
+          {% for module in course.modules.all %}
+          <div class="module-item">
+            <div class="module-header">
+              <span>{{ module.order }}. {{ module.title }}</span>
+
+              <div class="module-actions">
+                <a
+                  href="{% url 'create_lesson' module.id %}"
+                  class="add-lesson-btn"
+                >
+                  + Add Lesson
+                </a>
+
+                <a href="{% url 'edit_module' module.id %}" class="action-edit">
+                  Edit
+                </a>
+
+                <a
+                  href="{% url 'delete_module' module.id %}"
+                  class="action-delete"
+                >
+                  Delete
+                </a>
+              </div>
+            </div>
+
+            <div class="lessons-section">
+              <h4>Lessons</h4>
+
+              {% for lesson in module.lessons.all %}
+              <div class="lesson-item">
+                <span>{{ lesson.order }}. {{ lesson.title }}</span>
+
+                <div class="lesson-actions">
+                  <a
+                    href="{% url 'edit_lesson' lesson.id %}"
+                    class="action-edit"
+                  >
+                    Edit
+                  </a>
+
+                  <a
+                    href="{% url 'delete_lesson' lesson.id %}"
+                    class="action-delete"
+                  >
+                    Delete
+                  </a>
+                </div>
+              </div>
+              {% empty %}
+              <p class="no-lessons">No lessons added yet.</p>
+              {% endfor %}
+            </div>
+          </div>
+          {% empty %}
+          <p class="no-modules">No modules added yet.</p>
+          {% endfor %}
+        </div>
+
+        <div class="course-info">
+          <span>₹{{ course.price }}</span>
+
+          {% if course.is_published %}
+          <span class="published">Published</span>
+          {% else %}
+          <span class="draft">Draft</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% empty %}
+    <div class="empty-courses">
+      <h2>No Courses Yet</h2>
+      <p>Create your first course to get started.</p>
+
+      <a href="{% url 'create_course' %}" class="create-course-btn">
+        Create Course
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %} ```

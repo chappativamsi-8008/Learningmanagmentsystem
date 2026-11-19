@@ -1,0 +1,220 @@
+{% extends "base.html" %} {% load static %} {% block title %}Teacher Dashboard |
+LearnHub{% endblock %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+
+<div class="student-dashboard teacher-dashboard">
+  <!-- ================= WELCOME ================= -->
+
+  <section class="dashboard-welcome reveal">
+    <div class="welcome-content">
+      <span class="dashboard-badge">TEACHER DASHBOARD</span>
+
+      <h1>
+        Welcome back,
+        <span>{{ user.first_name|default:user.username }}</span> 👋
+      </h1>
+
+      <p>
+        Create courses, manage your learning content and help students build
+        valuable skills.
+      </p>
+    </div>
+
+    <div class="welcome-decoration">
+      <div class="welcome-orbit orbit-one"></div>
+      <div class="welcome-orbit orbit-two"></div>
+
+      <div class="welcome-center">L</div>
+    </div>
+  </section>
+
+  <!-- ================= STATISTICS ================= -->
+
+  <section class="dashboard-stats">
+    <div class="stat-card reveal">
+      <div class="stat-icon">📚</div>
+
+      <div>
+        <span>My Courses</span>
+        <strong>{{ total_courses }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card reveal">
+      <div class="stat-icon completed-icon">✓</div>
+
+      <div>
+        <span>Published Courses</span>
+        <strong>{{ published_courses }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card reveal">
+      <div class="stat-icon progress-icon">👨‍🎓</div>
+
+      <div>
+        <span>Total Students</span>
+        <strong>0</strong>
+      </div>
+    </div>
+
+    <div class="stat-card reveal">
+      <div class="stat-icon score-icon">📝</div>
+
+      <div>
+        <span>Exams</span>
+        <strong>0</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MANAGEMENT ================= -->
+
+  <section class="dashboard-main">
+    <div class="learning-dashboard-card reveal">
+      <div class="card-heading">
+        <div>
+          <span class="dashboard-label"> COURSE MANAGEMENT </span>
+
+          <h2>Manage Your Courses</h2>
+
+          <p>
+            Create new courses or manage the courses you have already created.
+          </p>
+        </div>
+
+        <div class="card-heading-icon">+</div>
+      </div>
+
+      <div class="learning-actions">
+        <a
+          href="{% url 'create_course' %}"
+          class="dashboard-action primary-action"
+        >
+          <div class="action-icon">+</div>
+
+          <div>
+            <strong>Create Course</strong>
+            <span>Build a new learning course</span>
+          </div>
+
+          <b>→</b>
+          <a href="{% url 'create_exam' %}" class="dashboard-action">
+            <div class="action-icon">📝</div>
+
+            <div>
+              <strong>Create Exam</strong>
+              <span>Create an exam for your course</span>
+            </div>
+
+            <b>→</b>
+          </a>
+        </a>
+
+        <a href="{% url 'add_teacher' %}" class="dashboard-action">
+          <div class="action-icon">👨‍🏫</div>
+          <div>
+            <strong>Add Teacher</strong>
+            <span>Create a new teacher account</span>
+          </div>
+          <b>→</b>
+        </a>
+
+        <a href="{% url 'teacher_courses' %}" class="dashboard-action">
+          <div class="action-icon">📚</div>
+
+          <div>
+            <strong>My Courses</strong>
+            <span>Manage your existing courses</span>
+          </div>
+
+          <b>→</b>
+        </a>
+      </div>
+    </div>
+
+    <!-- ================= COURSE OVERVIEW ================= -->
+
+    <div class="progress-dashboard-card reveal">
+      <div class="progress-card-header">
+        <div>
+          <span class="dashboard-label"> COURSE OVERVIEW </span>
+
+          <h2>Publishing</h2>
+        </div>
+      </div>
+
+      <div class="teacher-overview">
+        <div class="overview-number">{{ published_courses }}</div>
+
+        <p>Published courses</p>
+      </div>
+
+      <div class="dashboard-progress-bar">
+        {% if total_courses > 0 %}
+
+        <div class="dashboard-progress-fill" style="width: 0%"></div>
+
+        {% else %}
+
+        <div class="dashboard-progress-fill" style="width: 0%"></div>
+
+        {% endif %}
+      </div>
+
+      <div class="progress-footer">
+        <span> Published </span>
+
+        <strong> {{ published_courses }} / {{ total_courses }} </strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TEACHER CTA ================= -->
+
+  <section class="quick-start-section reveal">
+    <div class="quick-start-content">
+      <span class="dashboard-label"> CREATE • TEACH • INSPIRE </span>
+
+      <h2>
+        Turn your knowledge into
+        <span>learning.</span>
+      </h2>
+
+      <p>
+        Create structured courses, add modules and lessons, and give students a
+        better learning experience.
+      </p>
+
+      <a href="{% url 'create_course' %}" class="dashboard-primary-btn">
+        Create New Course
+        <span>→</span>
+      </a>
+      <a
+        href="{% url 'create_exam' %}"
+        class="dashboard-primary-btn"
+        style="display: inline-flex; margin-left: 10px"
+      >
+        Create New Exam
+        <span>→</span>
+      </a>
+    </div>
+
+    <div class="quick-start-visual">
+      <div class="floating-skill skill-one">COURSE</div>
+
+      <div class="floating-skill skill-two">MODULE</div>
+
+      <div class="floating-skill skill-three">LESSON</div>
+
+      <div class="skill-core">
+        <span>+</span>
+
+        <strong> TEACH </strong>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="lesson-detail-page">
+  <div class="lesson-detail-card">
+    <h1>{{ lesson.title }}</h1>
+
+    <div class="lesson-description">
+      {{ lesson.description|default:"No description available." }}
+    </div>
+
+    <div class="lesson-resources">
+      {% if lesson.video_link %}
+      <a
+        href="{{ lesson.video_link }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="lesson-resource-link"
+      >
+        ▶ Watch Video
+      </a>
+      {% endif %} {% if lesson.matter_link %}
+      <a
+        href="{{ lesson.matter_link }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="lesson-resource-link"
+      >
+        📚 Study Material
+      </a>
+      {% endif %}
+    </div>
+
+    <form
+      method="POST"
+      action="{% url 'complete_lesson' lesson.id %}"
+      class="lesson-complete-form"
+    >
+      {% csrf_token %}
+
+      <button type="submit" class="lesson-complete-btn">
+        ✓ Mark as Complete
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %} ```
